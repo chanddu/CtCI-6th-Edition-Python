@@ -1,31 +1,18 @@
 # O(N)
 import unittest
 
-
 def urlify(string, length):
     '''function replaces single spaces with %20 and removes trailing spaces'''
-    new_index = len(string)
-
-    for i in reversed(range(length)):
-        if string[i] == ' ':
-            # Replace spaces
-            string[new_index - 3:new_index] = '%20'
-            new_index -= 3
-        else:
-            # Move characters
-            string[new_index - 1] = string[i]
-            new_index -= 1
-
-    return string
-
+    l = string.strip().split()
+    return '%20'.join(l)
 
 class Test(unittest.TestCase):
     '''Test Cases'''
     # Using lists because Python strings are immutable
     data = [
-        (list('much ado about nothing      '), 22,
-         list('much%20ado%20about%20nothing')),
-        (list('Mr John Smith    '), 13, list('Mr%20John%20Smith'))]
+        ('much ado about nothing      ', 22,
+         'much%20ado%20about%20nothing'),
+        ('Mr John Smith    ', 13, 'Mr%20John%20Smith')]
 
     def test_urlify(self):
         for [test_string, length, expected] in self.data:
